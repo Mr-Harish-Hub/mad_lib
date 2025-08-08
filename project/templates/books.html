@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+{% extends 'admin_dashboard.html' %}
+<body>
+    {% block content %}
+        <h3>Books Page</h3>
+        <div id="section_table">
+            <div class="row">
+            {% if book %}
+                {% for b in book %}
+                    
+                    <div class="card border border-black" style="width: 350px; margin: 5px;">
+                        <div class="card-body ">
+                            <h5 class="card-title">{{b.name}}</h5>
+                            <!-- <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6> -->
+                            <p class="card-text">{{b.author}}</p>
+                            <p class="card-text">Rating: {% for y in rating %}{% if b.id==y.book_id %}
+                                {% if y.avg_rating %}{{y.avg_rating}}★{% else %}N.A.{% endif %}{% endif %}{% endfor %}</p>
+                            {% if current_user.role=='Admin' %}
+                                <a href="/book/{{b.id}}" class="card-link btn btn-outline-dark">Read Book</a>
+                            {% elif b.id in miss %} 
+                                <a href="/requestbook/{{b.id}}" class="btn btn-outline-dark">Request Access</a> 
+                            {% else %} 
+                                {% for x in book_access %}
+                                    {% if x.book_id==b.id %} 
+                                        {% if x.status=='Accept' %}
+                                            <a href="/book/{{b.id}}" class="btn btn-outline-dark">Read Book</a>
+                                        {% elif x.status=='Returned' %}
+                                            <a href="/payment_for/{{x.book_id}}{{x.user_id}}"><button class="btn btn-outline-dark">Pay</button></a>
+                                        {% elif x.status=='Paid' %}
+                                        <a href="/download/{{x.book_id}}{{x.user_id}}"><button class="btn btn-outline-dark">Download</button></a>
+                                        {% else %}
+                                            <a href="/review_page" class="btn btn-outline-dark">Requested</a>
+                                        {% endif %} 
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            {% if current_user.role=='Admin' %}
+                                <a href="/book/remove{{b.id}}" class="card-link btn btn-outline-dark">Delete</a>
+                                <a href="/book/update/{{b.id}}" class="card-link btn btn-outline-dark">Update</a>
+                                
+                            {% elif current_user.role=='User' %}                    
+                                <a href="/ratebook/{{b.id}}" class="btn btn-outline-dark">Rate it!</a>
+                            {% endif %}
+                        </div>
+                      </div>
+                {% endfor %}
+            {% else %}
+                <p> No books available in this section</p>
+                {{super()}}
+            {% endif %}
+            </div></div>
+        {% if current_user.role=='Admin' %}
+        <!-- <div id="add_more">
+            <button type="button" class="btn btn-secondary" onclick="href='/sections/add_new';">+</button>
+        </div> -->
+        <div>
+            <a href="/upload/book" type="button" class="btn btn-dark" style="margin: 10px;">+Add Book</a>
+        </div>
+        {% endif %}
+    {% endblock %}
+</body>
+</html>

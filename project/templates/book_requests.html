@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+{% extends 'navibar.html' %}
+<body>
+    {% block content %}
+    {% if current_user.role=='Admin' %}
+        
+        <table id="pending-reqs" class="table">
+            <h3 style="margin: 10px;">Requests</h3>
+            <thead>
+                <tr>
+                    <th style="width: 50%;">Info</th> 
+                    <th>Date of request</th>
+                    <th style="width: 10%;">Action</th> 
+                    <!-- <th style="width: 10%;">Accept</th>  -->
+                </tr>
+            </thead>
+            {% for x in book_rec %}
+            <tbody>
+                <tr>
+                    <td>{% for y in book %} {% if y.book_id==x.book_id %} {{y.name}} {% endif %} {% endfor %}</td>
+                    <td>{% for z in user %} {% if z.user_id==x.user_id %} {{y.name}} {% endif %} {% endfor %}</td>
+                    
+                    <td><span>
+                        <!-- <button class="btn btn-danger">Reject</button>
+                        <button class="btn btn-success">Accept</button> -->
+                        <a href="/review_page"><button class="btn btn-warning">Review</button></a>
+                    </span></td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+        
+        <table id="granted-reqs" class="table">
+            <h3 style="margin:10px;">Granted</h3>
+            <thead>
+                <tr>
+                    <th style="width: 50%;">Info</th> 
+                    <th>Date of request</th>
+                    <th style="width: 10%;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>samp1</td>
+                    <td>{{Date}}</td>
+                    <td><a href="/revoke_access/{{book_id}}"><button class="btn btn-danger">Revoke</button></a></td>
+                </tr>
+            </tbody>
+        </table>
+    {% elif current_user.role=='User' %}
+        <table id="pending-reqs" class="table">
+            <h3 style="margin:10px;">Requests</h3>
+            <thead>
+                <tr>
+                    <th style="width: 50%;">Info</th> 
+                    <th>Date of request</th>
+                    <th style="width: 10%;">Action</th> 
+                    <!-- <th style="width: 10%;">Accept</th>  -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>samp1</td>
+                    <td>{{Date}}</td>
+                    <td><span>
+                        <!-- <button class="btn btn-danger">Reject</button>
+                        <button class="btn btn-success">Accept</button> -->
+                        <a href="/review_page"><button class="btn btn-warning">Review</button></a>
+                    </span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <table id="granted-reqs" class="table">
+            <h3 style="margin:10px;">Granted</h3>
+            <thead>
+                <tr>
+                    <th style="width: 50%;">Info</th> 
+                    <th>Date of request</th>
+                    <th style="width: 10%;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>samp1</td>
+                    <td>{{Date}}</td>
+                    <td><a href="/revoke_access/{{book_id}}"><button class="btn btn-danger">Return</button></a></td>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+    {% endblock %}
+</body>
+</html>

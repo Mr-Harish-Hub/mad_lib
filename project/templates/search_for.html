@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+{% extends 'navibar.html' %}
+<body>
+    {% block content %}
+    {% if book_search or section_search %}
+        {% if book_search %}
+        <div id="section_table">
+        <div class="row">
+        <h3>Your Search Results from Books:</h3>
+            {% for b in book_search %}
+                
+                <div class="card" style="width: 350px;height: auto; margin: 5px;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{b.name}}</h5>
+                        <p class="card-text">{{b.author}}</p>
+                        <p class="card-text">Rating: {% for y in bk_rating %}{% if b.id==y.book_id %}{{y.avg_rating}}★{% endif %}{% endfor %}</p>
+                        {% if current_user.role=='Admin' %}
+                            <a href="/book/{{b.id}}" class="card-link btn btn-outline-primary">Read Book</a>
+                        {% elif b.id in miss %} 
+                            <a href="/requestbook/{{b.id}}" class="btn btn-outline-primary">Request Access</a> 
+                        {% else %} 
+                            {% for x in book_access %}
+                                {% if x.book_id==b.id %} 
+                                    {% if x.status=='Accept' or x.status=='Paid' %}
+                                        <a href="/book/{{b.id}}" class="btn btn-outline-primary">Read Book</a>
+                                    {% else %}
+                                        <a href="/review_page" class="btn btn-outline-primary">Requested</a>
+                                    {% endif %} 
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        {% if current_user.role=='Admin' %}
+                            <a href="/book/remove{{b.id}}" class="card-link btn btn-outline-primary">Delete</a>
+                            <a href="/book/update/{{b.id}}" class="card-link btn btn-outline-primary">Update</a>
+                        {% elif current_user.role=='User' %}                    
+                            <a href="/ratebook/{{b.id}}" class="btn btn-outline-primary">Rate it!</a>
+                        {% endif %}
+                    </div>
+                  </div>
+            {% endfor %}
+        
+        {% endif %}
+        </div></div>
+        {% if section_search %}
+            <div id="section_table">
+            <div class="row">
+            <h3>Your Search Results from Sections:</h3>
+                {% for s in section_search %}
+                    <div class="card" style="width: 360px; margin: 5px;">
+                        <div class="card-body">
+                        <h5 class="card-title">{{s.name}}</h5>
+                        <p class="card-text">{{s.description}}</p>
+                        <p class="card-text">Rating: {% for y in sect_rating %}{% if s.id==y.section_id %}{{y.avg_rating}}★{% endif %}{% endfor %}</p>
+                        <a href="/sections/{{s.id}}" class="card-link btn btn-outline-primary">View Books</a>
+                        {% if current_user.role=='Admin' %}
+                            <a href="/sections/remove{{s.id}}" class="card-link btn btn-outline-primary">Delete</a>
+                            <a href="/sections/update/{{s.id}}" class="card-link btn btn-outline-primary">Update</a>
+                        {% elif current_user.role=='User' %}                    
+                            <a href="/ratesections/{{s.id}}" class="btn btn-outline-primary">Rate it!</a>
+                        {% endif %}
+                        </div>
+                      </div>
+                {% endfor %}
+            {% else %}
+                {{super()}}
+            {% endif %}
+            </div></div>
+    {% else %}
+    <h3>No match found!</h3>
+    {% endif %}
+    {% endblock %}
+</body>
+</html>

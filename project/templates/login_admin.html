@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div id="main">
+        <div id="canvas">
+            <div id="form-body">
+                <form action="/login/admin" method="POST" class="container px-4 text-center border border-2" style="padding: 20px;">
+                    <h1> ADMIN LOGIN</h1>
+                    <div class="container">
+                        <label for="username" name="username">Username</label><br>
+                        <input type="text" name="username" placeholder="Username" required>
+                    </div><br>
+                    <div class="container">
+                        <label for="password" name="password">Password</label><br>
+                        <input type="password" name="password" placeholder="Password" required>
+                    </div><br>
+                    <div class="container" style="text-align: center;">
+                        <!-- <button type="submit" class="btn btn-primary">Login</button><br> -->
+                        <input type="submit" value="Login" class="btn btn-primary"><br>
+                        New User? <a href="/new_user">Register</a>
+                    </div><br>
+                    <!-- <a href="/login/creator">Creator Login</a> -->
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

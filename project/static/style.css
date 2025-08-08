@@ -1,0 +1,58 @@
+*{
+    margin:0px;
+}
+#main, #canvas{
+    border: 2px solid black;
+}
+
+#canvas{
+    width: 80%;
+    margin: auto;
+    height: 800px;
+}
+
+#form-body{
+    border: 1px solid blue;
+    width: 310px;
+    height: 380px;
+    margin: auto;
+    margin-top: 100px;
+    padding: 15px;
+}
+
+#homepage{
+    margin-top: 50px;
+}
+
+#rows{
+    margin: 10px;
+}
+
+#profileinfo{
+    /* margin: 10px; */
+    /* margin-top: 0px; */
+    margin: auto;
+    width: max-content;
+}
+.colourchange:hover{
+    background-color:white;
+    color: black;
+}
+
+#regform{
+    margin: auto;
+    height:10px;
+    width: 550px;
+}
+
+#pending-reqs, #granted-reqs{
+    width: 90%;
+    /* height: 240px; */
+    margin: auto;
+}
+
+
+table,th,td{
+    border-collapse: collapse;
+    border: 1px solid black;
+}

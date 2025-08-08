@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div id="main">
+        <div id="canvas">
+            <div id="regform">
+                <form action="/new_user" method="POST"class="container px-4 text-center border border-2" style="margin-top:80px;">
+                    <h1>NEW USER REGISTRATION</h1>
+                    <br>
+                    <!-- <div class="container">
+                        <label for="fname" name="fname">First Name*</label>
+                        <input type="text" name="fname" placeholder="First Name" required><b>*</b>
+                    </div><br>
+                    <div class="container">
+                        <label for="lname" name="lname">Last Name</label>
+                        <input type="text" name="lname" placeholder="Last Name">
+                    </div><br> -->
+                    <div class="container">
+                        <!-- <label for="username" name="username">Username*</label> -->
+                        <input type="text" name="username" placeholder="Username" required><b>*</b>
+                    </div><br>
+                    <div class="container">
+                        <!-- <label for="password" name="password">Password*</label> -->
+                        <input type="password" name="password" placeholder="Password" required><b>*</b>
+                    </div><br>
+                    <div class="container">
+                        <!-- <label for="cpassword" name="cpassword">Confirm Password*</label> -->
+                        <input type="password" name="cpassword" placeholder="Confirm password" required><b>*</b>
+                    </div><br>
+                    <div class="container">
+                        <button type="submit" class="btn btn-primary">Sign Up</button><br>
+                    </div>
+                    <span><a href="/login" class="btn btn-outline-primary">Already a user?</a></span>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
